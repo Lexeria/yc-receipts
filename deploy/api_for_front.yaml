@@ -1,0 +1,28 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: RECEIPT FRONTEND
+x-yc-apigateway:
+  service_account_id: aje80tu406etpr1ciuiu
+
+paths:
+  /:
+    get:
+      operationId: index
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: receipt-website-b1gfdphr5fkt337ltrbn
+        object: 'index.html'
+  /{file+}:
+    get:
+      operationId: website
+      parameters:
+        - name: file
+          in: path
+          required: false
+          schema:
+            type: string
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: receipt-website-b1gfdphr5fkt337ltrbn
+        object: '{file}'
